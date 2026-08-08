@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#eee6f2"/>
+  <circle cx="400" cy="300" r="150" fill="#cdbad9"/>
+  <rect x="300" y="360" width="200" height="120" rx="16" fill="#b7a0c7"/>
+  <text x="400" y="150" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#7d6b8f" text-anchor="middle">Sofá · detalle</text>
+  <text x="400" y="185" font-family="system-ui, sans-serif" font-size="18" fill="#a894b5" text-anchor="middle">foto de ejemplo · reemplazar</text>
+</svg>

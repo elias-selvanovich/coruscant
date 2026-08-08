@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#f2e9ee"/>
+  <rect x="120" y="300" width="560" height="160" rx="24" fill="#c9b3bf"/>
+  <rect x="120" y="230" width="560" height="120" rx="28" fill="#d9c6d0"/>
+  <rect x="150" y="440" width="40" height="70" rx="8" fill="#a98bb9"/>
+  <rect x="610" y="440" width="40" height="70" rx="8" fill="#a98bb9"/>
+  <text x="400" y="130" font-family="system-ui, sans-serif" font-size="34" font-weight="700" fill="#8a6f7e" text-anchor="middle">Sofá 3 cuerpos</text>
+  <text x="400" y="170" font-family="system-ui, sans-serif" font-size="20" fill="#b09aa6" text-anchor="middle">foto de ejemplo · reemplazar</text>
+</svg>
