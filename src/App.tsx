@@ -63,7 +63,7 @@ function App() {
       <footer className="footer">
         <p>
           Hecho con cariño ·{' '}
-          <a href="https://www.selvanovich.com.ar">selvanovich.com.ar</a>
+          <a href="https://www.selvanovich.ar">selvanovich.ar</a>
         </p>
       </footer>
 

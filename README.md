@@ -1,6 +1,6 @@
 # coruscant
 
-Mini página para vender cosas por una mudanza — [coruscant.selvanovich.com.ar](https://coruscant.selvanovich.com.ar)
+Mini página para vender cosas por una mudanza — [coruscant.selvanovich.ar](https://coruscant.selvanovich.ar)
 
 Muestra artículos con fotos, descripción y precio (o "A convenir"). Cualquiera puede
 **reservar dejando su email**; la reserva queda guardada y **bloquea el ítem para el
@@ -40,8 +40,8 @@ delete from reservations where item_id = 'sofa-3-cuerpos';
 
 ### 2. Resend
 - Cuenta en [resend.com](https://resend.com) → creá una API key.
-- Para producción: verificá el dominio `selvanovich.com.ar` (agrega unos registros DNS
-  en Cloudflare) y usá un remitente tipo `reservas@selvanovich.com.ar`.
+- Para producción: verificá el dominio `selvanovich.ar` (agrega unos registros DNS
+  en Cloudflare) y usá un remitente tipo `reservas@selvanovich.ar`.
 - Para probar rápido podés usar `onboarding@resend.dev` (los mails llegan solo a tu
   propia dirección verificada en Resend).
 
@@ -54,7 +54,7 @@ mismas en Project → Settings → Environment Variables:
 | `SUPABASE_URL` | Project URL de Supabase |
 | `SUPABASE_SERVICE_ROLE_KEY` | service_role key (solo servidor) |
 | `RESEND_API_KEY` | API key de Resend |
-| `FROM_EMAIL` | Remitente, ej. `Coruscant <reservas@selvanovich.com.ar>` |
+| `FROM_EMAIL` | Remitente, ej. `Coruscant <reservas@selvanovich.ar>` |
 | `NOTIFY_EMAILS` | A quién avisar (varios separados por coma) |
 
 ## Desarrollo
@@ -78,5 +78,5 @@ vercel dev
 ## Deploy
 
 Proyecto de **Vercel** conectado a este repo. Framework preset: **Vite**. Push a `main`
-= deploy. Dominio `coruscant.selvanovich.com.ar` apuntado por CNAME desde Cloudflare
+= deploy. Dominio `coruscant.selvanovich.ar` apuntado por CNAME desde Cloudflare
 (en "DNS only"). Cargá las env vars antes del primer deploy.
