@@ -7,15 +7,15 @@ Muestra artículos con fotos, descripción y precio (o "A convenir"). Cualquiera
 primero** que reserva. A vos te llega un **email de aviso**.
 
 **Stack:** Vite + React + TypeScript · funciones serverless de Vercel (`/api`) ·
-Supabase (reservas) · Resend (emails). Todo en free tier.
+Turso (SQLite/libSQL, reservas) · Resend (emails). Todo en free tier.
 
 ## Cómo funciona
 
 - **Catálogo** → `src/data/items.ts` (editás vos). Fotos en `public/items/<id>/`.
 - **Estado "reservado"** → la app pide `GET /api/reservations` y marca los ítems.
-- **Reservar** → `POST /api/reserve` inserta en Supabase. La columna `item_id` es
-  `UNIQUE`: el segundo intento sobre el mismo ítem devuelve 409 ("ya reservado").
-  Sin race conditions. Después manda el aviso por Resend.
+- **Reservar** → `POST /api/reserve` inserta en Turso. `item_id` es `PRIMARY KEY`:
+  el segundo intento sobre el mismo ítem devuelve 409 ("ya reservado"). Sin race
+  conditions. Después manda el aviso por Resend.
 
 ## Agregar / editar cosas en venta
 
@@ -25,7 +25,7 @@ Supabase (reservas) · Resend (emails). Todo en free tier.
 
 ## Liberar un ítem reservado
 
-Borrá su fila en Supabase (Table editor o SQL):
+Borrá su fila en Turso (dashboard → SQL, o `turso db shell coruscant`):
 
 ```sql
 delete from reservations where item_id = 'sofa-3-cuerpos';
@@ -33,10 +33,21 @@ delete from reservations where item_id = 'sofa-3-cuerpos';
 
 ## Setup (una vez)
 
-### 1. Supabase
-- Creá un proyecto en [supabase.com](https://supabase.com).
-- SQL Editor → pegá y ejecutá [`supabase/schema.sql`](supabase/schema.sql).
-- Project Settings → API → copiá **Project URL** y **service_role key**.
+### 1. Turso
+Creá la base y corré el schema. Con el [dashboard](https://turso.tech) (creás la DB
+por la web y pegás el SQL) o con la CLI:
+
+```bash
+# instalar CLI (macOS)
+brew install tursodatabase/tap/turso
+turso auth login
+
+turso db create coruscant
+turso db shell coruscant < db/schema.sql   # crea la tabla (ver db/schema.sql)
+
+turso db show coruscant --url              # → TURSO_DATABASE_URL
+turso db tokens create coruscant           # → TURSO_AUTH_TOKEN
+```
 
 ### 2. Resend
 - Cuenta en [resend.com](https://resend.com) → creá una API key.
@@ -51,8 +62,8 @@ mismas en Project → Settings → Environment Variables:
 
 | Variable | Qué es |
 |---|---|
-| `SUPABASE_URL` | Project URL de Supabase |
-| `SUPABASE_SERVICE_ROLE_KEY` | service_role key (solo servidor) |
+| `TURSO_DATABASE_URL` | URL libSQL de la base (`libsql://…`) |
+| `TURSO_AUTH_TOKEN` | Token de auth de Turso (solo servidor) |
 | `RESEND_API_KEY` | API key de Resend |
 | `FROM_EMAIL` | Remitente, ej. `Coruscant <reservas@selvanovich.ar>` |
 | `NOTIFY_EMAILS` | A quién avisar (varios separados por coma) |

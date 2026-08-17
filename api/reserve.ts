@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { Resend } from 'resend'
-import { getSupabase } from './_lib/supabase'
+import { getDb, isUniqueViolation } from './_lib/db'
 import { itemById } from '../src/data/items'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -25,17 +25,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const supabase = getSupabase()
-    const { error } = await supabase
-      .from('reservations')
-      .insert({ item_id: itemId, email })
-
-    if (error) {
-      // 23505 = unique_violation → ya reservado
-      if ((error as { code?: string }).code === '23505') {
+    const db = getDb()
+    try {
+      await db.execute({
+        sql: 'insert into reservations (item_id, email) values (?, ?)',
+        args: [itemId, email],
+      })
+    } catch (dbErr) {
+      // item_id es PRIMARY KEY → violación de unicidad = ya reservado
+      if (isUniqueViolation(dbErr)) {
         return res.status(409).json({ error: 'already-reserved' })
       }
-      throw error
+      throw dbErr
     }
 
     // Aviso por email (best-effort: si falla, la reserva igual quedó guardada)
@@ -76,7 +77,7 @@ async function notify(itemTitle: string, email: string): Promise<void> {
         <p><strong>Artículo:</strong> ${escapeHtml(itemTitle)}</p>
         <p><strong>Reservó:</strong> ${escapeHtml(email)}</p>
         <p style="color:#6f6570;">Escribile para coordinar la entrega. Si querés
-        liberar el ítem, borrá la fila en Supabase.</p>
+        liberar el ítem, borrá la fila en Turso.</p>
       </div>
     `,
   })
