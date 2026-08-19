@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": "sofa-3-cuerpos",
+      "title": "Sofá 3 cuerpos",
+      "description": "Sofá gris de 3 cuerpos, muy cómodo. Tiene algo de uso pero está impecable. Retira en zona Palermo.",
+      "price": 90000,
+      "photos": ["/items/sofa-3-cuerpos/1.svg", "/items/sofa-3-cuerpos/2.svg"],
+      "reserved": false
+    },
+    {
+      "id": "bici-rodado-29",
+      "title": "Bicicleta MTB rodado 29",
+      "description": "Mountain bike rodado 29, cambios Shimano, frenos a disco. Recién service. Ideal ciudad y montaña.",
+      "price": 150000,
+      "photos": ["/items/bici-rodado-29/1.svg"],
+      "reserved": false
+    },
+    {
+      "id": "escritorio-madera",
+      "title": "Escritorio de madera",
+      "description": "Escritorio de madera maciza, 120x60cm. Un par de marcas de uso. Perfecto para home office.",
+      "price": null,
+      "photos": ["/items/escritorio-madera/1.svg"],
+      "reserved": true
+    }
+  ]
+}

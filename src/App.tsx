@@ -1,24 +1,21 @@
 import '@fontsource/space-grotesk/500.css'
 import '@fontsource/space-grotesk/700.css'
 import { useEffect, useState } from 'react'
-import { items, type Item } from './data/items'
-import { fetchReservedIds } from './lib/api'
+import { loadItems, type Item } from './data/catalog'
 import { ItemCard } from './components/ItemCard'
-import { ReserveModal } from './components/ReserveModal'
 
 function App() {
-  const [reserved, setReserved] = useState<Set<string>>(new Set())
+  const [items, setItems] = useState<Item[]>([])
   const [loaded, setLoaded] = useState(false)
-  const [selected, setSelected] = useState<Item | null>(null)
 
   useEffect(() => {
     let alive = true
-    fetchReservedIds()
-      .then((ids) => {
-        if (alive) setReserved(new Set(ids))
+    loadItems()
+      .then((data) => {
+        if (alive) setItems(data)
       })
       .catch(() => {
-        /* si falla, mostramos todo como disponible */
+        /* si falla, queda vacío */
       })
       .finally(() => {
         if (alive) setLoaded(true)
@@ -28,21 +25,17 @@ function App() {
     }
   }, [])
 
-  function markReserved(id: string) {
-    setReserved((prev) => new Set(prev).add(id))
-  }
-
-  const available = items.filter((it) => !reserved.has(it.id)).length
+  const available = items.filter((it) => !it.reserved).length
 
   return (
     <div className="page">
       <header className="hero">
         <h1 className="hero__title">Nos mudamos 📦</h1>
         <p className="hero__sub">
-          Estas cosas buscan casa nueva. Si algo te gusta, reservalo con tu email
+          Estas cosas buscan casa nueva. Si algo te gusta, reservalo por WhatsApp
           y coordinamos.
         </p>
-        {loaded && (
+        {loaded && items.length > 0 && (
           <p className="hero__count">
             {available} de {items.length} disponibles
           </p>
@@ -51,14 +44,13 @@ function App() {
 
       <main className="grid">
         {items.map((item) => (
-          <ItemCard
-            key={item.id}
-            item={item}
-            reserved={reserved.has(item.id)}
-            onReserve={setSelected}
-          />
+          <ItemCard key={item.id} item={item} />
         ))}
       </main>
+
+      {loaded && items.length === 0 && (
+        <p className="empty">Pronto vamos a publicar cosas por acá. ¡Volvé luego!</p>
+      )}
 
       <footer className="footer">
         <p>
@@ -66,14 +58,6 @@ function App() {
           <a href="https://www.selvanovich.ar">selvanovich.ar</a>
         </p>
       </footer>
-
-      {selected && (
-        <ReserveModal
-          item={selected}
-          onClose={() => setSelected(null)}
-          onReserved={markReserved}
-        />
-      )}
     </div>
   )
 }

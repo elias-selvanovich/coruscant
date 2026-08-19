@@ -2,92 +2,66 @@
 
 Mini página para vender cosas por una mudanza — [coruscant.selvanovich.ar](https://coruscant.selvanovich.ar)
 
-Muestra artículos con fotos, descripción y precio (o "A convenir"). Cualquiera puede
-**reservar dejando su email**; la reserva queda guardada y **bloquea el ítem para el
-primero** que reserva. A vos te llega un **email de aviso**.
+Muestra artículos con fotos, descripción y precio (o "A convenir"). Para reservar,
+cada ítem tiene un **botón de WhatsApp** que abre un chat con un mensaje prellenado
+("Hola, quiero reservar: X"). Cuando te llega el mensaje, marcás el ítem como
+**reservado** desde un admin local.
 
-**Stack:** Vite + React + TypeScript · funciones serverless de Vercel (`/api`) ·
-Turso (SQLite/libSQL, reservas) · Resend (emails). Todo en free tier.
+**Stack:** Vite + React + TypeScript. **Sin backend**: sitio 100% estático. El catálogo
+es un JSON que editás vos. Deploy gratis en Vercel, sin base de datos ni variables de
+entorno.
 
 ## Cómo funciona
 
-- **Catálogo** → `src/data/items.ts` (editás vos). Fotos en `public/items/<id>/`.
-- **Estado "reservado"** → la app pide `GET /api/reservations` y marca los ítems.
-- **Reservar** → `POST /api/reserve` inserta en Turso. `item_id` es `PRIMARY KEY`:
-  el segundo intento sobre el mismo ítem devuelve 409 ("ya reservado"). Sin race
-  conditions. Después manda el aviso por Resend.
+- **Catálogo** → [`public/items.json`](public/items.json). El sitio lo lee al cargar.
+- **Reservar** → botón de WhatsApp (`wa.me`) con el mensaje prellenado hacia tu número.
+- **Marcar reservado** → cambiás `"reserved": true` en el ítem (a mano o con el admin).
+  El ítem queda con un badge "Reservado" y sin botón.
 
-## Agregar / editar cosas en venta
+## Configurar tu WhatsApp
 
-1. Poné las fotos en `public/items/<id>/` (ej. `public/items/sofa-3-cuerpos/1.jpg`).
-2. Agregá/editá la entrada en `src/data/items.ts` (`price: null` → "A convenir").
-3. `git push` → Vercel deploya solo.
+En [`src/config.ts`](src/config.ts):
 
-## Liberar un ítem reservado
+- `WHATSAPP_PHONE` — tu número en formato internacional, solo dígitos. Argentina celular:
+  `54 9 <área sin 0> <número sin 15>` → ej. `5491122334455`.
+- `WHATSAPP_TEMPLATE` — el texto del mensaje (`{title}` se reemplaza por el ítem).
 
-Borrá su fila en Turso (dashboard → SQL, o `turso db shell coruscant`):
+## Cargar / editar cosas (admin local)
 
-```sql
-delete from reservations where item_id = 'sofa-3-cuerpos';
-```
-
-## Setup (una vez)
-
-### 1. Turso
-Creá la base y corré el schema. Con el [dashboard](https://turso.tech) (creás la DB
-por la web y pegás el SQL) o con la CLI:
+Hay un pequeño admin que corre **solo en tu máquina** y escribe `public/items.json`:
 
 ```bash
-# instalar CLI (macOS)
-brew install tursodatabase/tap/turso
-turso auth login
-
-turso db create coruscant
-turso db shell coruscant < db/schema.sql   # crea la tabla (ver db/schema.sql)
-
-turso db show coruscant --url              # → TURSO_DATABASE_URL
-turso db tokens create coruscant           # → TURSO_AUTH_TOKEN
+npm run admin      # abre http://localhost:4321
 ```
 
-### 2. Resend
-- Cuenta en [resend.com](https://resend.com) → creá una API key.
-- Para producción: verificá el dominio `selvanovich.ar` (agrega unos registros DNS
-  en Cloudflare) y usá un remitente tipo `reservas@selvanovich.ar`.
-- Para probar rápido podés usar `onboarding@resend.dev` (los mails llegan solo a tu
-  propia dirección verificada en Resend).
+Ahí agregás/editás ítems, subís precios, pegás links de fotos y marcás reservados.
+Al guardar, escribe el JSON. Para que aparezca online:
 
-### 3. Variables de entorno
-Copiá `.env.example` → `.env.local` y completá (ver ese archivo). En Vercel, cargá las
-mismas en Project → Settings → Environment Variables:
+```bash
+git add public/items.json && git commit -m "Actualizar catálogo" && git push
+```
 
-| Variable | Qué es |
-|---|---|
-| `TURSO_DATABASE_URL` | URL libSQL de la base (`libsql://…`) |
-| `TURSO_AUTH_TOKEN` | Token de auth de Turso (solo servidor) |
-| `RESEND_API_KEY` | API key de Resend |
-| `FROM_EMAIL` | Remitente, ej. `Coruscant <reservas@selvanovich.ar>` |
-| `NOTIFY_EMAILS` | A quién avisar (varios separados por coma) |
+> El admin vive en `admin/` y está en `.gitignore` (no se sube; Vercel solo sirve el
+> `dist/` compilado, así que nunca sería público de todos modos).
+
+### Fotos
+- Locales: poné los archivos en `public/items/<id>/` y referencialos como
+  `/items/<id>/1.jpg` (una por línea en el admin).
+- Externas: pegá la URL completa.
+
+### Editar el JSON a mano (alternativa al admin)
+Cada ítem: `id` (único y estable), `title`, `description`, `price` (número o `null` →
+"A convenir"), `photos` (array de rutas/URLs), `reserved` (`true`/`false`).
 
 ## Desarrollo
 
-Solo el front (sin backend), útil para maquetar:
-
 ```bash
 npm install
-npm run dev
+npm run dev        # http://localhost:5174
 ```
-
-Con las funciones `/api` (flujo completo de reservas), usando el CLI de Vercel:
-
-```bash
-npm i -g vercel
-vercel dev
-```
-
-(`vercel dev` levanta el front + las funciones y lee `.env.local`.)
 
 ## Deploy
 
-Proyecto de **Vercel** conectado a este repo. Framework preset: **Vite**. Push a `main`
-= deploy. Dominio `coruscant.selvanovich.ar` apuntado por CNAME desde Cloudflare
-(en "DNS only"). Cargá las env vars antes del primer deploy.
+Proyecto de **Vercel** conectado a este repo. Framework preset: **Vite**, sin env vars.
+Push a `main` = deploy. Dominio `coruscant.selvanovich.ar` apuntado por CNAME desde
+Cloudflare (en "DNS only") → `cname.vercel-dns.com`.

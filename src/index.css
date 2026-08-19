@@ -198,6 +198,9 @@ a {
 
 /* Button */
 .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: var(--pink);
   color: #fff;
   border: none;
@@ -207,6 +210,7 @@ a {
   padding: 10px 18px;
   border-radius: 999px;
   cursor: pointer;
+  text-decoration: none;
   transition: background 0.15s ease, transform 0.1s ease;
 }
 
@@ -218,16 +222,28 @@ a {
   transform: scale(0.97);
 }
 
-.btn:disabled {
-  background: #d9d2d7;
-  color: #fff;
-  cursor: default;
+/* Botón de reservar por WhatsApp (verde reconocible) */
+.btn--wa {
+  background: #25d366;
 }
 
-.btn--wide {
-  width: 100%;
-  padding: 13px;
-  margin-top: 8px;
+.btn--wa:hover {
+  background: #1da851;
+}
+
+/* Estado reservado: no es un botón real, es una etiqueta */
+.btn--disabled {
+  background: #e3dde1;
+  color: #8a7f88;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 0;
 }
 
 /* Footer */
@@ -238,118 +254,7 @@ a {
   font-size: 0.9rem;
 }
 
-/* Modal */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(28, 23, 32, 0.5);
-  backdrop-filter: blur(3px);
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  z-index: 50;
-  animation: fade 0.15s ease;
-}
-
-.modal {
-  position: relative;
-  background: #fff;
-  border-radius: 20px;
-  padding: 30px 26px 26px;
-  width: 100%;
-  max-width: 420px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
-  animation: pop 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.modal__close {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  background: none;
-  border: none;
-  font-size: 1.6rem;
-  line-height: 1;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.modal h3 {
-  font-size: 1.25rem;
-}
-
-.modal__hint {
-  color: var(--muted);
-  font-size: 0.92rem;
-  margin: 8px 0 18px;
-}
-
-.modal__form label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.modal__form input {
-  width: 100%;
-  font-family: inherit;
-  font-size: 1rem;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.modal__form input:focus {
-  border-color: var(--pink);
-  box-shadow: 0 0 0 3px var(--pink-tint);
-}
-
-.modal__error {
-  color: var(--pink-dark);
-  font-size: 0.85rem;
-  margin-top: 8px;
-}
-
-.modal__done {
-  text-align: center;
-}
-
-.check {
-  width: 56px;
-  height: 56px;
-  margin: 4px auto 14px;
-  border-radius: 50%;
-  background: var(--pink-tint);
-  color: var(--pink-dark);
-  font-size: 1.8rem;
-  display: grid;
-  place-items: center;
-}
-
-.modal__done p {
-  color: var(--muted);
-  margin: 8px 0 20px;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes pop {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.98);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .overlay,
-  .modal,
   .card {
     animation: none;
     transition: none;
