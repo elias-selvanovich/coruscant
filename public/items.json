@@ -3,8 +3,8 @@
     {
       "id": "baranda_seguridad",
       "title": "Baranda Seguirdad",
-      "description": "",
-      "price": null,
+      "description": "Baranda de seguridad para cama marca bidcom. Nueva, sin uso, en su empaque cerrada. ",
+      "price": 20000,
       "photos": [
         "/items/baranda_seguridad/1.jpg"
       ],
@@ -13,8 +13,8 @@
     {
       "id": "cochecito",
       "title": "Cochecito Rock&Toys",
-      "description": "",
-      "price": null,
+      "description": "Cochecito con huevito Rock and toys twist, gira 360° (nuevo 1 millon y moneditas) Usado 400k pesos.",
+      "price": 400000,
       "photos": [
         "/items/cochecito/1.jpg",
         "/items/cochecito/2.jpg",
@@ -35,8 +35,8 @@
     {
       "id": "cuna",
       "title": "Cuna Premium Baby Orbital",
-      "description": "",
-      "price": null,
+      "description": "Cuna colecho Premium Orbital. 6 meses de poco uso. (Nueva 200k) viene con colchoncito y su funda de viaje. 80k pesos.",
+      "price": 80000,
       "photos": [
         "/items/cuna/1.jpg",
         "/items/cuna/2.jpg",
@@ -51,7 +51,7 @@
     {
       "id": "mueble_rca",
       "title": "Mueble Antiguo RCA",
-      "description": "",
+      "description": "Mueble antiguo Rca sin parlantes, sin funcionar. Ideal para reparar o decorar. Solo venir a retirarlo. Se dona.",
       "price": null,
       "photos": [
         "/items/mueble_rca/1.jpg",
@@ -64,8 +64,8 @@
     {
       "id": "parrilla",
       "title": "Parrilla Chulengo Tromen",
-      "description": "",
-      "price": null,
+      "description": "Parrilla chulengo Tromen. Con 2 ruedas. (500k nueva) viene con funda. Usada. 250k pes.",
+      "price": 250000,
       "photos": [
         "/items/parrilla/1.jpg",
         "/items/parrilla/2.jpg",
@@ -80,8 +80,8 @@
     {
       "id": "quincho",
       "title": "Juego Quincho Mesa vidrio + 4 sillas + sombrilla",
-      "description": "",
-      "price": null,
+      "description": "Juego jardín mesa de vidrio con 4 sillas y sombrilla (color rojo) usado. 200k  pes( nuevo aprox 400k)",
+      "price": 200000,
       "photos": [
         "/items/quincho/1.jpg",
         "/items/quincho/2.jpg",
