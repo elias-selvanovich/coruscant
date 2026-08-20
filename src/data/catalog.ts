@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { WHATSAPP_PHONE, WHATSAPP_TEMPLATE } from '../config'
 
 export type Item = {
@@ -9,12 +10,42 @@ export type Item = {
   reserved: boolean
 }
 
-// Lee el catálogo del JSON estático (que edita el admin local).
-export async function loadItems(): Promise<Item[]> {
-  const res = await fetch('/items.json', { cache: 'no-store' })
-  if (!res.ok) throw new Error('No se pudo cargar el catálogo')
-  const data = (await res.json()) as { items: Item[] }
-  return data.items ?? []
+// Cache a nivel módulo: se fetchea el JSON una sola vez por carga de página.
+let cache: Promise<Item[]> | null = null
+
+export function loadItems(): Promise<Item[]> {
+  if (!cache) {
+    cache = fetch('/items.json', { cache: 'no-store' })
+      .then((res) => {
+        if (!res.ok) throw new Error('No se pudo cargar el catálogo')
+        return res.json()
+      })
+      .then((data: { items: Item[] }) => data.items ?? [])
+      .catch((err) => {
+        cache = null // permití reintentar si falló
+        throw err
+      })
+  }
+  return cache
+}
+
+// Hook compartido por la grilla y el detalle.
+export function useCatalog() {
+  const [items, setItems] = useState<Item[]>([])
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    let alive = true
+    loadItems()
+      .then((data) => alive && setItems(data))
+      .catch(() => {})
+      .finally(() => alive && setLoaded(true))
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  return { items, loaded }
 }
 
 // Link de WhatsApp con el mensaje de reserva prellenado.

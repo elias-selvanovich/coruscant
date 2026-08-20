@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-  <rect width="800" height="600" fill="#f3ede4"/>
-  <rect x="160" y="250" width="480" height="40" rx="8" fill="#c8a878"/>
-  <rect x="190" y="290" width="30" height="180" fill="#b6966a"/>
-  <rect x="580" y="290" width="30" height="180" fill="#b6966a"/>
-  <rect x="420" y="290" width="190" height="90" rx="6" fill="#d8bd97"/>
-  <text x="400" y="150" font-family="system-ui, sans-serif" font-size="30" font-weight="700" fill="#8a7350" text-anchor="middle">Escritorio de madera</text>
-  <text x="400" y="188" font-family="system-ui, sans-serif" font-size="18" fill="#b09a78" text-anchor="middle">foto de ejemplo · reemplazar</text>
-</svg>

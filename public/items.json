@@ -1,28 +1,93 @@
 {
   "items": [
     {
-      "id": "sofa-3-cuerpos",
-      "title": "Sofá 3 cuerpos",
-      "description": "Sofá gris de 3 cuerpos, muy cómodo. Tiene algo de uso pero está impecable. Retira en zona Palermo.",
-      "price": 90000,
-      "photos": ["/items/sofa-3-cuerpos/1.svg", "/items/sofa-3-cuerpos/2.svg"],
-      "reserved": false
-    },
-    {
-      "id": "bici-rodado-29",
-      "title": "Bicicleta MTB rodado 29",
-      "description": "Mountain bike rodado 29, cambios Shimano, frenos a disco. Recién service. Ideal ciudad y montaña.",
-      "price": 150000,
-      "photos": ["/items/bici-rodado-29/1.svg"],
-      "reserved": false
-    },
-    {
-      "id": "escritorio-madera",
-      "title": "Escritorio de madera",
-      "description": "Escritorio de madera maciza, 120x60cm. Un par de marcas de uso. Perfecto para home office.",
+      "id": "baranda_seguridad",
+      "title": "Baranda Seguirdad",
+      "description": "",
       "price": null,
-      "photos": ["/items/escritorio-madera/1.svg"],
-      "reserved": true
+      "photos": [
+        "/items/baranda_seguridad/1.jpg"
+      ],
+      "reserved": false
+    },
+    {
+      "id": "cochecito",
+      "title": "Cochecito Rock&Toys",
+      "description": "",
+      "price": null,
+      "photos": [
+        "/items/cochecito/1.jpg",
+        "/items/cochecito/2.jpg",
+        "/items/cochecito/3.jpg",
+        "/items/cochecito/4.jpg",
+        "/items/cochecito/5.jpg",
+        "/items/cochecito/6.jpg",
+        "/items/cochecito/7.jpg",
+        "/items/cochecito/8.jpg",
+        "/items/cochecito/9.jpg",
+        "/items/cochecito/10.jpg",
+        "/items/cochecito/11.jpg",
+        "/items/cochecito/12.jpg",
+        "/items/cochecito/13.jpg"
+      ],
+      "reserved": false
+    },
+    {
+      "id": "cuna",
+      "title": "Cuna Premium Baby Orbital",
+      "description": "",
+      "price": null,
+      "photos": [
+        "/items/cuna/1.jpg",
+        "/items/cuna/2.jpg",
+        "/items/cuna/3.jpg",
+        "/items/cuna/4.jpg",
+        "/items/cuna/5.jpg",
+        "/items/cuna/6.jpg",
+        "/items/cuna/7.jpg"
+      ],
+      "reserved": false
+    },
+    {
+      "id": "mueble_rca",
+      "title": "Mueble Antiguo RCA",
+      "description": "",
+      "price": null,
+      "photos": [
+        "/items/mueble_rca/1.jpg",
+        "/items/mueble_rca/2.jpg",
+        "/items/mueble_rca/3.jpg",
+        "/items/mueble_rca/4.jpg"
+      ],
+      "reserved": false
+    },
+    {
+      "id": "parrilla",
+      "title": "Parrilla Chulengo Tromen",
+      "description": "",
+      "price": null,
+      "photos": [
+        "/items/parrilla/1.jpg",
+        "/items/parrilla/2.jpg",
+        "/items/parrilla/3.jpg",
+        "/items/parrilla/4.jpg",
+        "/items/parrilla/5.jpg",
+        "/items/parrilla/6.jpg",
+        "/items/parrilla/7.jpg"
+      ],
+      "reserved": false
+    },
+    {
+      "id": "quincho",
+      "title": "Juego Quincho Mesa vidrio + 4 sillas + sombrilla",
+      "description": "",
+      "price": null,
+      "photos": [
+        "/items/quincho/1.jpg",
+        "/items/quincho/2.jpg",
+        "/items/quincho/3.jpg"
+      ],
+      "reserved": false
     }
   ]
 }
